@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+
+import sys
+import random
+
+if(len(sys.argv) > 0):
+    arguments = list(sys.argv)[1:]
+else:
+    arguments = []
+
+def generatePassword(arguments):
+    # default number of random words is 4
+    num_random_words = 4
+    # default number of randomly capitalized words is 0
+    num_caps_words = 0
+    # default number of symbols is 0 
+    num_symbols = 0
+    # default number of numbers is 0
+    num_numbers = 0
+
+    if ('-h' in arguments or '--help' in arguments):
+        print('usage: xkcdpwgen [-h] [-w WORDS] [-c CAPS] [-n NUMBERS] [-s SYMBOLS]' + '\n'
+        'Generate a secure, memorable password using the XKCD method' + '\n'          
+        'optional arguments:' + '\n' + '-h, --help        show this help message and exit' + '\n'
+    '-w WORDS, --words WORDS include WORDS words in the password (default=4)' + '\n'
+    '-c CAPS, --caps CAPS  capitalize the first letter of CAPS random words (default=0)' + '\n'
+    ' -n NUMBERS, --numbers NUMBERS insert NUMBERS random numbers in the password (default=0)' + '\n' + '-s SYMBOLS, --symbols SYMBOLS insert SYMBOLS random symbols in the password (default=0)')
+    if ('-w' in arguments):
+            if(isinstance(int(arguments[arguments.index('-w') + 1]), int) and int(arguments[arguments.index('-w') + 1]) >= 0):
+                num_random_words = arguments[arguments.index('-w') + 1]
+            else:
+                return 'Words argument is invalid. Must be an integer greater than 0.'
+    if ('--words' in arguments):
+        if(isinstance(int(arguments[arguments.index('--words') + 1]), int)) and int(arguments[arguments.index('--words') + 1]) >= 0:
+            num_random_words = arguments[arguments.index('--words') + 1]
+        else:
+            return 'Words argument is invalid. Must be an integer'
+    if ('-c' in arguments):
+            if(isinstance(int(arguments[arguments.index('-c') + 1]), int)):
+                if(int(arguments[arguments.index('-c') + 1]) <= int(num_random_words) and int(arguments[arguments.index('-c') + 1]) >= 0):
+                    num_caps_words = arguments[arguments.index('-c') + 1]
+                else:
+                    return 'Number of capitalized words must lie between the number of random words and 0'
+            else:
+                return 'Words argument is invalid. Must be an integer'
+    if ('--caps' in arguments):
+            if(isinstance(int(arguments[arguments.index('--caps') + 1]), int)):
+                if(int(arguments[arguments.index('--caps') + 1]) <= int(num_random_words) and int(arguments[arguments.index('-c') + 1]) >= 0):
+                    num_caps_words = arguments[arguments.index('--caps') + 1]
+                else:
+                    return 'Number of capitalized words must lie between the number of random words and 0'
+            else:
+                return 'Words argument is invalid. Must be an integer'
+    if ('-s' in arguments):
+            if(isinstance(int(arguments[arguments.index('-s') + 1]), int) and int(arguments[arguments.index('-s') + 1]) >= 0):
+                num_symbols = arguments[arguments.index('-s') + 1]
+            else:
+                return 'Symbols argument is invalid. Must be an integer'
+    if ('--symbols' in arguments):
+            if(isinstance(int(arguments[arguments.index('--symbols') + 1]), int)) and int(arguments[arguments.index('--symbols') + 1]) >= 0:
+                num_symbols = arguments[arguments.index('--symbols') + 1]
+            else:
+                return 'Symbols argument is invalid. Must be an integer'
+    if ('-n' in arguments):
+            if(isinstance(int(arguments[arguments.index('-n') + 1]), int) and int(arguments[arguments.index('-n') + 1]) >= 0):
+                num_numbers = arguments[arguments.index('-n') + 1]
+            else:
+                return 'Numbers argument is invalid. Must be at least 0.'
+    if ('--numbers' in arguments):
+            if(isinstance(int(arguments[arguments.index('--numbers') + 1]), int) and int(arguments[arguments.index('--numbers') + 1]) >= 0):
+                num_numbers = arguments[arguments.index('--numbers') + 1]
+            else:
+                return 'Numbers argument is invalid. Must be at least 0.'
+
+    rand_words = open('words.txt').readlines()
+    symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '~', '`', ]
+    password_bank = []
+    random_words = []
+    for x in range(int(num_random_words)):
+        word = rand_words[random.randint(0, len(rand_words) - 1)] 
+        random_words.append(word[0:len(word) - 1])
+    for y in range(int(num_caps_words)):
+        toCaps = random_words.pop(random.randint(0, len(random_words) - 1))
+        toAdd = toCaps.capitalize()
+        password_bank.append(toAdd)
+    for word in random_words:
+        password_bank.append(word)
+    for i in range(int(num_numbers)):
+        password_bank.append(str(random.randint(0, 9)))
+    for j in range(int(num_symbols)):
+        password_bank.append(symbols[random.randint(0, len(symbols) - 1)])
+
+    num = len(password_bank)
+    password = ""
+    for q in range(num):
+        password += password_bank.pop(random.randint(0, len(password_bank) - 1))
+        
+    return password
+
+print(generatePassword(arguments))
+
+
+
+                
+
+
