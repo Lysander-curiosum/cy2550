@@ -26,16 +26,22 @@ def generatePassword(arguments):
     '-c CAPS, --caps CAPS  capitalize the first letter of CAPS random words (default=0)' + '\n'
     ' -n NUMBERS, --numbers NUMBERS insert NUMBERS random numbers in the password (default=0)' + '\n' + '-s SYMBOLS, --symbols SYMBOLS insert SYMBOLS random symbols in the password (default=0)')
     if ('-w' in arguments):
+            if(len(arguments) == 1):
+                return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('-w') + 1]), int) and int(arguments[arguments.index('-w') + 1]) >= 0):
                 num_random_words = arguments[arguments.index('-w') + 1]
             else:
                 return 'Words argument is invalid. Must be an integer greater than 0.'
     if ('--words' in arguments):
+        if(len(arguments) == 1):
+                return 'No number value passed.'
         if(isinstance(int(arguments[arguments.index('--words') + 1]), int)) and int(arguments[arguments.index('--words') + 1]) >= 0:
             num_random_words = arguments[arguments.index('--words') + 1]
         else:
             return 'Words argument is invalid. Must be an integer'
     if ('-c' in arguments):
+            if(len(arguments) == 1):
+                return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('-c') + 1]), int)):
                 if(int(arguments[arguments.index('-c') + 1]) <= int(num_random_words) and int(arguments[arguments.index('-c') + 1]) >= 0):
                     num_caps_words = arguments[arguments.index('-c') + 1]
@@ -44,6 +50,8 @@ def generatePassword(arguments):
             else:
                 return 'Words argument is invalid. Must be an integer'
     if ('--caps' in arguments):
+            if(len(arguments) == 1):
+                    return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('--caps') + 1]), int)):
                 if(int(arguments[arguments.index('--caps') + 1]) <= int(num_random_words) and int(arguments[arguments.index('-c') + 1]) >= 0):
                     num_caps_words = arguments[arguments.index('--caps') + 1]
@@ -52,21 +60,29 @@ def generatePassword(arguments):
             else:
                 return 'Words argument is invalid. Must be an integer'
     if ('-s' in arguments):
+            if(len(arguments) == 1):
+                return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('-s') + 1]), int) and int(arguments[arguments.index('-s') + 1]) >= 0):
                 num_symbols = arguments[arguments.index('-s') + 1]
             else:
                 return 'Symbols argument is invalid. Must be an integer'
     if ('--symbols' in arguments):
+            if(len(arguments) == 1):
+                return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('--symbols') + 1]), int)) and int(arguments[arguments.index('--symbols') + 1]) >= 0:
                 num_symbols = arguments[arguments.index('--symbols') + 1]
             else:
                 return 'Symbols argument is invalid. Must be an integer'
     if ('-n' in arguments):
+            if(len(arguments) == 1):
+                return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('-n') + 1]), int) and int(arguments[arguments.index('-n') + 1]) >= 0):
                 num_numbers = arguments[arguments.index('-n') + 1]
             else:
                 return 'Numbers argument is invalid. Must be at least 0.'
     if ('--numbers' in arguments):
+            if(len(arguments) == 1):
+                return 'No number value passed.'
             if(isinstance(int(arguments[arguments.index('--numbers') + 1]), int) and int(arguments[arguments.index('--numbers') + 1]) >= 0):
                 num_numbers = arguments[arguments.index('--numbers') + 1]
             else:
