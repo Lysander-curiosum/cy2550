@@ -1,0 +1,17 @@
+abi <abi/3.0>
+include <tunables/global>
+/home/benjaminirving/Desktop/cy2550/project6/p2 {
+  include <abstractions/base>
+  include <abstractions/user-tmp>
+  network tcp,
+  deny /proc/meminfo r,
+  deny /proc/stat r,
+  /etc/hostid rw,
+  /etc/hosts rw, 
+  /etc/passwd rw,
+  /etc/timezone rw,
+  /home/benjaminirving/Desktop/cy2550/project6/template mrw,
+  /proc/uptime rw,
+  /var/log/syslog rw,
+  owner /home/*/.project2/config w, 
+}
